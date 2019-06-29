@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.5) 
+cmake_minimum_required(VERSION 3.2) 
 
-IF(DEFINED $ENV{TRAVIS_BUILD_NUMBER})
+IF(DEFINED ENV{TRAVIS_BUILD_NUMBER})
 	SET(P_VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 ELSE()
 	SET(P_VERSION 0.0.1)
@@ -29,8 +29,6 @@ set_target_properties(test_boost1 PROPERTIES
     COMPILE_DEFINITIONS BOOST_TEST_DYN_LINK
     INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
 )
-
-
 
 add_executable(test_catch1 test/test_catch.cc)
 
