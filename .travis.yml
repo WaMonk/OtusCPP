@@ -8,6 +8,8 @@ script:
 - cmake --build ./packages/work1/ --target test
 - cmake --build ./packages/work1/ --target package
 deploy:
-  provider: script
+  provider: bintray
   skip_cleanup: true
-  script:
+  file: build/package/Otus-All-0.0.1-Linux.deb
+  user: wamonk
+  key: afc4b2b9da1f600b45e2eaf57d3880a6d70a5f20
