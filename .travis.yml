@@ -1,7 +1,8 @@
 language: cpp
 before_script:
 - sudo apt-get install libboost-test-dev libgtest-dev build-essential -y
-- sudo cd /usr/src/gtest
+- ls -lah /usr/src
+- cd /usr/src/gtest
 - sudo cmake .
 - sudo cmake --build . --target install
 - sudo mv libgtest* /usr/lib/
