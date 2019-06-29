@@ -6,3 +6,4 @@ _CPack_Packages/*
 install_manifest.txt
 build/*
 Makefile
+bintray/descripion.json

@@ -13,7 +13,7 @@
     },
 
     "version": {
-        "name": "0.1",
+        "name": "@P_G_VERSION@",
         "desc": "Desc",
         "released": "2019-06-29",
         "vcs_tag": "0.5",
