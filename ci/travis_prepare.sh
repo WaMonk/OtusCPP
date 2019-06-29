@@ -1,13 +1,12 @@
-#!/usr/bin/env bash
+#!/bin/bash
 CWD=$PWD
 #
 echo "Deb update: "
-echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
-sudo add-apt-repository universe
-sudo apt-get update -y
+sudo apt-add-repository universe main
+sudo apt-get update
 #
 echo "Install Modules: "
-sudo apt-get install -y libboost-test-dev libgtest-dev build-essential
+sudo apt-get install libboost-test-dev build-essential libgtest-dev
 #
 echo "Configure GTest: "
 cd /usr/src/gtest
