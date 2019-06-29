@@ -6,7 +6,7 @@ sudo apt-add-repository universe main
 sudo apt-get update
 #
 echo "Install Modules: "
-sudo apt-get install libboost-test-dev build-essential libgtest-dev
+sudo apt-get install libboost-test-dev build-essential libgtest-dev cd cmake
 #
 echo "Configure GTest: "
 sudo cd /usr/src/gtest
