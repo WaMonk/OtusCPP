@@ -1,4 +1,4 @@
-CmakeFiles/*
+CMakeFiles/*
 CMakeCache.txt
 *.cmake
 _CPack_Packages/*

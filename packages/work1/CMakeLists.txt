@@ -9,11 +9,10 @@ ENDIF()
 project(Otus1 VERSION "${P_VERSION}")
 
 include_directories("include")
+configure_file(cfg/version.h.in include/version.h)
 
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 find_package(GTest REQUIRED)
-
-configure_file(cfg/version.h.in version.h)
 
 add_executable(main1 src/main.cc)
 
