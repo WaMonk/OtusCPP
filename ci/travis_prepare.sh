@@ -3,7 +3,8 @@ CWD=$PWD
 #
 echo "Deb update: "
 echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
-sudo apt-get update
+sudo add-apt-repository universe
+sudo apt-get update -y
 #
 echo "Install Modules: "
 sudo apt-get install -y libboost-test-dev libgtest-dev build-essential
