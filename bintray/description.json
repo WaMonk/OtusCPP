@@ -1,0 +1,27 @@
+{
+    "package": {
+        "name": "FirstStep",
+        "repo": "OtusCPP",
+        "subject": "wamonk",
+        "desc": "first step in this ugly world",
+        "website_url": "www.jfrog.com",
+        "vcs_url": "https://github.com/WaMonk/OtusCPP",
+        "licenses": ["MIT"],
+        "labels": ["study"],
+        "public_download_numbers": false,
+        "public_stats": false
+    },
+
+    "version": {
+        "name": "0.1",
+        "desc": "Desc",
+        "released": "2019-06-29",
+        "vcs_tag": "0.5"
+    },
+
+    "files":
+        [
+        {"includePattern": "build/package/(.*\\.deb)", "uploadPattern": "/$1"}
+        ],
+    "publish": true
+}
