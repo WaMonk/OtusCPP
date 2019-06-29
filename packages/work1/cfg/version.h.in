@@ -1,0 +1,6 @@
+#ifndef OTUS_VERSION_H
+#define OTUS_VERSION_H
+
+#define OTUS_VERSION @PROJECT_VERSION_PATCH@
+
+#endif

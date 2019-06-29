@@ -1,0 +1,8 @@
+CmakeFiles/*
+CMakeCache.txt
+*.cmake
+_CPack_Packages/*
+*.deb
+install_manifest.txt
+build/*
+Makefile

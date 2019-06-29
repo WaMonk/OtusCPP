@@ -1,0 +1,17 @@
+language: cpp
+before_script:
+- sudo apt-get install libboost-test-dev libgtest-dev build-essential -y
+- cd /usr/src/googletest
+- sudo cmake .
+- sudo cmake --build . --target install
+- echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
+- sudo apt-get update -qq
+script:
+- cmake .
+- cmake --build ./packages/work1/
+- cmake --build ./packages/work1/ --target test
+- cmake --build ./packages/work1/ --target package
+deploy:
+  provider: script
+  skip_cleanup: true
+  script:
