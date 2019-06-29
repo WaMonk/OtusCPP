@@ -1,4 +1,5 @@
 language: cpp
+dist: xenial
 install:
   - source ci/travis_prepare.sh
 script:
