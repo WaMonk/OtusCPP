@@ -1,10 +1,9 @@
 language: cpp
 before_script:
 - sudo apt-get install libboost-test-dev libgtest-dev build-essential -y
-- ls -lah /usr/src
 - cd /usr/src/gtest
-- sudo cmake .
-- sudo cmake --build . --target install
+- cmake .
+- cmake --build . --target install
 - sudo mv libgtest* /usr/lib/
 - cd "${TRAVIS_BUILD_DIR}"
 - echo "deb http://archive.ubuntu.com/ubuntu xenial main universe" | sudo tee -a /etc/apt/sources.list
