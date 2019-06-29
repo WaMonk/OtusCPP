@@ -1,7 +1,7 @@
 language: cpp
 dist: xenial
 install:
-  - source ci/travis_prepare.sh
+- source ci/travis_prepare.sh
 script:
 - cmake .
 - cmake --build ./packages/work1/
@@ -12,4 +12,5 @@ deploy:
   skip_cleanup: true
   file: build/package/Otus-All-0.0.1-Linux.deb
   user: wamonk
-  key: afc4b2b9da1f600b45e2eaf57d3880a6d70a5f20
+  key:
+    secure: O65B5UhVR79x9CFGOyzODrEwDMY9/AWMGjD7VVoboYB+4YdZoKiqPtN76i1rHmvRUU5+fXnTFaG5zsMhgRkLIE/eXULLwTo8B9rDSplNposOCbp6pxfRjejQF7PPG/Le6PmcbA6VFzmFNsBmGkAx3H0xWl2afTekTzkNc/LaNC3aLl62mXa7MYACnPxNveyuCrMMSMizpGShY/iZsLW6dSnki+OpagtiCKosHsoPFVzjL+8m+o0hCvzYE23po6zcuuW2gnlwsz2WcBwx8C3JXlA1nsGY+bYuIQsJ5LS8MXPX8yJ+ambxP8mDZJPGeaNDNt/bS9J9+70d90OWY1fJoUa8IgqLKDAvckB2yfZwN5L4+WJT3mT5AqTGReLBnh8L2aHm13BMJ/4t4EIwoweVv2ZalIetX1UDo+UiXGG3699vOZml04muLHv95drFQtDpXl8/1YlBSJV3apmJThzBQ24gv4wNTizn5d8SzY7RMUOAvEvSzs+a7cILOj/gJD03libhK3MIa0D+eBwmis5sN/rwA9BrBV8u12+aic+VZ6UEKK9OhEtFNkoAVQAPxIrED8IyOlfbkdyIIUx+tj3OgVg11UkrnTmzxdIhk+15p9CoTWGcrJKI1fQuzYm0PMS7uxz8mYPQIHesajGUAVVmyw1hGwBoGU8GJzNN5ml/wZw=
