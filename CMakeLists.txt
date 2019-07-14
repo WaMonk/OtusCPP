@@ -24,3 +24,4 @@ include_directories(lib)
 configure_file(bintray/description.json.in bintray/description.json)
 
 add_subdirectory(packages/work1)
+add_subdirectory(packages/work2)
