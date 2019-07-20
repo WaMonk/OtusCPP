@@ -20,8 +20,10 @@ CustomIP::CustomIP(const char * raw) {
     _raw = sraw;
 
     auto v = utils::split(sraw, '.');
+    if(v.size() != kIpPieceSize)
+        throw std::invalid_argument("Ip Format is broken: size");
 
-    for(size_t i = 0; i < v.size(); ++i){
+    for(size_t i = 0; i < kIpPieceSize; ++i){
         _pieces[i] = stoi(v[i]);
     }
 }
@@ -40,24 +42,11 @@ string CustomIP::as_string() const {
     return retval;
 }
 
-        bool CustomIP::operator ==(const CustomIP &b) const {
-            cout<<"=="<<endl;
-            return false;}
-        bool CustomIP::operator !=(const CustomIP &b) const {
-            cout<<"!="<<endl;
-            return false;}
-        bool CustomIP::operator >(const CustomIP &b) const {
-            cout<<">"<<endl;
-            return false;}
-        bool CustomIP::operator <(const CustomIP &b) const {
-            cout<<"<"<<endl;
-            return false;}
-        bool CustomIP::operator >=(const CustomIP &b) const {
-            cout<<">="<<endl;
-            return false;}
-        bool CustomIP::operator <=(const CustomIP &b) const {
-            cout<<"<="<<endl;
-            return false;}
+bool CustomIP::check_byte(size_t position, uint value) const {
+    if(position > _pieces.size() || position == 0)
+        throw std::invalid_argument("Check is broken: wrong position: " + std::to_string(position));
 
+    return _pieces.at(position -1) == value;
+}
 
 }}

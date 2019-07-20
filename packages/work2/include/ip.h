@@ -13,6 +13,9 @@ namespace ip {
 
     using CustomIPSP = shared_ptr<CustomIP>;
 
+    const size_t kMinAdrSize = 8;
+    const size_t kIpPieceSize = 4;
+
     class CustomIP {
     public :
         CustomIP() {}
@@ -22,12 +25,7 @@ namespace ip {
         void print();
         std::string as_string() const;
 
-        bool operator ==(const CustomIP &b) const;
-        bool operator !=(const CustomIP &b) const;
-        bool operator >(const CustomIP &b) const;
-        bool operator <(const CustomIP &b) const;
-        bool operator >=(const CustomIP &b) const;
-        bool operator <=(const CustomIP &b) const;
+        bool check_byte(size_t position, uint value) const;
 
     private:
        
@@ -35,7 +33,7 @@ namespace ip {
         string _raw{""};
         vector<uint> _pieces = {0,0,0,0};
 
-        const size_t kMinAdrSize = 8;
+
 
     };
 }

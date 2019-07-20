@@ -4,9 +4,9 @@ install:
 - source ci/travis_prepare.sh
 script:
 - cmake .
-- cmake --build ./packages/work1/
-- cmake --build ./packages/work1/ --target test
-- cmake --build ./packages/work1/ --target package
+- cmake --build ./packages/work2/
+- cmake --build ./packages/work2/ --target test
+- cmake --build ./packages/work2/ --target package
 deploy:
   provider: bintray
   skip_cleanup: true

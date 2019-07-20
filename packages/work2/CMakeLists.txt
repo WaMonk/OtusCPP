@@ -10,9 +10,11 @@ project(Otus1 VERSION "${P_VERSION}")
 
 include_directories("include")
 
-add_executable(main2 src/main.cc src/ip.cc src/utils.cc)
+set(sources2 src/ip.cc src/utils.cc)
 
-add_executable(test2 test/test.cc)
+add_executable(main2 src/main.cc ${sources2})
+
+add_executable(test2 test/test.cc ${sources2})
 
 set(CPACK_GENERATOR DEB)
 

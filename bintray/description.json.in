@@ -1,6 +1,6 @@
 {
     "package": {
-        "name": "FirstStep",
+        "name": "@B_PACKAGE_NAME@",
         "repo": "OtusCPP",
         "subject": "wamonk",
         "desc": "first step in this ugly world",
