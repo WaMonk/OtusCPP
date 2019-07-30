@@ -21,12 +21,12 @@ int main() {
                 ip_pool.push_back(make_shared<CustomIP>(temp.at(0).c_str()));
         }
 
-        sort(ip_pool.begin(), ip_pool.end(), [](const CustomIPSP left, const CustomIPSP right) -> bool {return left->as_string() >= right->as_string(); });
+        sort(ip_pool.begin(), ip_pool.end(), [](const CustomIPSP left, const CustomIPSP right) -> bool {return *left < *right; });
         for(auto ip : ip_pool){
             ip->print();
         }
 
-        sort(ip_pool.begin(), ip_pool.end(), [](const CustomIPSP left, const CustomIPSP right) -> bool {return left->as_string() < right->as_string(); });
+        sort(ip_pool.begin(), ip_pool.end(), [](const CustomIPSP left, const CustomIPSP right) -> bool {return *left > *right; });
         for(auto ip : ip_pool){
             ip->print();
         }

@@ -49,4 +49,17 @@ bool CustomIP::check_byte(size_t position, uint value) const {
     return _pieces.at(position -1) == value;
 }
 
+uint CustomIP::get_byte(size_t position) const {
+    return _pieces.at(position);
+}
+
+bool CustomIP::cmp(const CustomIP& rhs) const {
+    for(size_t i  = 0; i < _pieces.size(); ++i){
+        if(get_byte(i) > rhs.get_byte(i)){
+            return true;
+        }
+    }
+    return false;
+}
+
 }}
