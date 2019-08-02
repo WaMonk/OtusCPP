@@ -62,4 +62,13 @@ bool CustomIP::cmp(const CustomIP& rhs) const {
     return false;
 }
 
+bool CustomIP::is_equal(const CustomIP& rhs) const {
+    for(size_t i  = 0; i < _pieces.size(); ++i){
+        if(get_byte(i) != rhs.get_byte(i)){
+            return false;
+        }
+    }
+    return true;
+}
+
 }}

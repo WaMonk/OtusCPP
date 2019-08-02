@@ -27,10 +27,14 @@ namespace ip {
 
         bool check_byte(size_t position, uint value) const;
         bool cmp(const CustomIP& rhs) const;
+        bool is_equal(const CustomIP& rhs) const;
         uint get_byte(size_t position) const;
 
         inline bool operator<(const CustomIP& rhs)  { return !cmp(rhs);}
+        inline bool operator<=(const CustomIP& rhs) { return is_equal(rhs) || !cmp(rhs);}
         inline bool operator>(const CustomIP& rhs)  { return cmp(rhs);}
+        inline bool operator>=(const CustomIP& rhs) { return is_equal(rhs) || cmp(rhs);}
+        inline bool operator==(const CustomIP& rhs) { return is_equal(rhs);}
 
     private:
        

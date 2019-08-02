@@ -49,6 +49,10 @@ TEST_CASE("CustomIP") {
     catch(std::exception& ex){
         REQUIRE(strcmp(ex.what(),"Check is broken: wrong position: 0") == 0);
     }
+    catch(...){
+        std::cerr<<"Unhandled exception"<<std::endl;
+        REQUIRE(true == false);
+    }
 
     REQUIRE(ip->check_byte(1,10));
     REQUIRE(ip->check_byte(2,35) == false);
