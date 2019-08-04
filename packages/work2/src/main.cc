@@ -21,27 +21,27 @@ int main() {
                 ip_pool.push_back(make_shared<CustomIP>(temp.at(0).c_str()));
         }
 
-        sort(ip_pool.begin(), ip_pool.end(), [](const CustomIPSP left, const CustomIPSP right) -> bool {return left->as_string() >= right->as_string(); });
-        for(auto ip : ip_pool){
+        sort(ip_pool.begin(), ip_pool.end(), [](const CustomIPSP left, const CustomIPSP right) -> bool {return *left <= *right; });
+        
+        for(const auto& ip : ip_pool){
             ip->print();
         }
 
-        sort(ip_pool.begin(), ip_pool.end(), [](const CustomIPSP left, const CustomIPSP right) -> bool {return left->as_string() < right->as_string(); });
-        for(auto ip : ip_pool){
-            ip->print();
+        for(auto it = ip_pool.cbegin(); it != ip_pool.cend(); ++it){
+            (*it)->print();
         }
 
-        for(auto ip : ip_pool){
+        for(const auto& ip : ip_pool){
             if(ip->check_byte(1,1))
                 ip->print();
         }
 
-        for(auto ip : ip_pool){
+        for(const auto& ip : ip_pool){
             if(ip->check_byte(1,46) && ip->check_byte(2,70))
                 ip->print();
         }
 
-        for(auto ip : ip_pool){
+        for(const auto& ip : ip_pool){
             if(ip->check_byte(1,46) || ip->check_byte(2,46) || ip->check_byte(3,46) || ip->check_byte(4,46))
                 ip->print();
         }
