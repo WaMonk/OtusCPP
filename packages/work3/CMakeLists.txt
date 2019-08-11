@@ -1,20 +1,20 @@
 cmake_minimum_required(VERSION 3.2) 
 
 IF(DEFINED ENV{TRAVIS_BUILD_NUMBER})
-	SET(P_VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
+    SET(P_VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
 ELSE()
-	SET(P_VERSION 0.0.1)
+    SET(P_VERSION 0.0.1)
 ENDIF()
 
 project(Otus1 VERSION "${P_VERSION}")
 
 include_directories("include")
 
-set(sources2 src/ip.cc src/utils.cc)
+set(sources3)
 
-add_executable(main2 src/main.cc ${sources2})
+add_executable(main3 src/main.cc ${sources3})
 
-add_executable(test2 test/test.cc ${sources2})
+add_executable(test3 test/test.cc ${sources3})
 
 set(CPACK_GENERATOR DEB)
 
@@ -27,4 +27,4 @@ include(CPack)
 
 enable_testing()
 
-add_test(test2 test2)
+add_test(test3 test3)
