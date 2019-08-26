@@ -10,6 +10,13 @@ project(Otus1 VERSION "${P_VERSION}")
 
 include_directories("include")
 
+IF(CMAKE_COMPILER_IS_GNUCC)
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0")
+    set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -O0")
+ENDIF(CMAKE_COMPILER_IS_GNUCC)
+
+
+set(CMAKE_BUILD_TYPE "Debug")
 set(sources3)
 
 add_executable(main3 src/main.cc ${sources3})
