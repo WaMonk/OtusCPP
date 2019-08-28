@@ -7,6 +7,7 @@
 #include <cstdlib>
 
 #include <allocator.h>
+#include <simpletree.h>
 
 using namespace std;
 

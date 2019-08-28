@@ -42,7 +42,7 @@ namespace otus {
 
                 _pool = static_cast<MemoryPtr*>(_root);
                 for(size_t i = 0; i < _page_size; i++){
-                    _pool[i] = MemoryPtr(_root + pool_size + (i * _obj_size),  _page_size - i);
+                    new(_pool + i) MemoryPtr(_root + pool_size + (i * _obj_size),  _page_size - i);
                 }
 
                 print();
