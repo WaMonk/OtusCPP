@@ -5,7 +5,7 @@
 #include <functional>
 #include <memory>
 
-namespace pirates { namespace helpers {
+namespace otus { namespace data {
 
   template <typename T> struct TreeNode {
         T*           data  = nullptr;

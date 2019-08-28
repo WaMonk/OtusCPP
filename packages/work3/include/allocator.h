@@ -15,37 +15,58 @@ namespace otus {
         public:
             struct MemoryPtr
             {
-                void* ptr;
+                T* ptr;
                 size_t max_size;
                 bool used;
 
-                MemoryPtr(void* ptr, size_t msize) : ptr(ptr), max_size(msize), used(false) {}
+                MemoryPtr(T* ptr, size_t msize) : ptr(ptr), max_size(msize), used(false) {}
+                MemoryPtr(void* ptr, size_t msize) : ptr(static_cast<T*>(ptr)), max_size(msize), used(false) {}
 
                 void print() const {
                     std::cout<<" ptr: "<<ptr<<", msize: "<<max_size<<", used: "<<used<<std::endl;       
+                }
+
+                ~MemoryPtr(){
+                    if(used)
+                        ptr->~T();
                 }
             };
 
             MemoryPage(const MemoryPage &p2) = delete;
             MemoryPage& operator=(const MemoryPage&) = delete;
             
-            MemoryPage(MemoryPage&&) noexcept = default;
-            MemoryPage& operator=(MemoryPage&&) noexcept = default;
+            MemoryPage(MemoryPage&& o) noexcept  {
+                _root = std::move(o._root);
+                _pool = std::move(o._pool);
+                _page_size = std::move(o._page_size);
+                _obj_size = std::move(o._obj_size);
+
+                o._root = nullptr;
+                o._pool = nullptr;
+            }
+
+            MemoryPage& operator=(MemoryPage&&o) noexcept {
+                _root = std::move(o._root);
+                _pool = std::move(o._pool);
+                _page_size = std::move(o._page_size);
+                _obj_size = std::move(o._obj_size);
+
+                o._root = nullptr;
+                o._pool = nullptr;
+            }
 
             MemoryPage(size_t page_size) {
-                std::cout<<"MemoryPage -- construct. Size="<<page_size<<std::endl;
                 _page_size = page_size;
                 _obj_size = sizeof(T);
                     
                 size_t pool_size = _page_size * sizeof(MemoryPtr);
                 _root = malloc(_page_size * _obj_size +  pool_size);
-
                 _pool = static_cast<MemoryPtr*>(_root);
-                for(size_t i = 0; i < _page_size; i++){
-                    new(_pool + i) MemoryPtr(_root + pool_size + (i * _obj_size),  _page_size - i);
-                }
+                char* _root_addr = static_cast<char*>(_root);
 
-                print();
+                for(size_t i = 0; i < _page_size; i++){
+                    new(_pool + i) MemoryPtr(_root_addr + pool_size + (i * _obj_size),  _page_size - i);
+                }
             }
 
             bool deallocate(T* ptr, size_t count = 1) const{
@@ -106,18 +127,18 @@ namespace otus {
             }
 
             ~MemoryPage(){
-                for(size_t i = 0; i < _page_size; i++){
-                    if(_pool[i].used){
-                        static_cast<T*>(_pool[i].ptr)->~T();
+                if(_pool){
+                    for(size_t i = 0; i < _page_size; i++ ){
+                        _pool[i].~MemoryPtr();
                     }
-                          
                 }
-                free(_root);
+                    
+                if(_root)
+                    free(_root);
                         
             }
 
             void print() const {
-                std::cout<<"MemoryPage -- print. "<<std::endl;
                  for(size_t i = 0; i < _page_size; i++){
                     std::cout<<"i: "<<i;
                     _pool[i].print();       
@@ -163,10 +184,8 @@ namespace otus {
                     if(retval == nullptr){
                         _pages.emplace_back(n < PageSize ? PageSize : n);
                         const auto& page = _pages.back();
-                        page.print();
                         retval = page.allocate(n);
                     }
-                    std::cout<<" allocate, ptr: "<<retval<<std::endl;
                     return retval;
                 }
 
