@@ -7,89 +7,94 @@
 
 namespace otus { namespace data {
 
-  template <typename T> struct TreeNode {
-        T*           data  = nullptr;
-        TreeNode<T>* left  = nullptr;
-        TreeNode<T>* right = nullptr;
+template <typename T> struct TreeNode {
 
-        size_t size;
+    T data;
+    TreeNode<T>* left;
+    TreeNode<T>* right;
 
-        bool is_root;
+    TreeNode(const T& member) {
+        data = member;
+        left = nullptr;
+        right = nullptr;
+    }
 
-        TreeNode() : data(nullptr), left(nullptr), right(nullptr), size(0), is_root(true) {}
-        TreeNode(const T& data) : data(new T(data)), left(nullptr), right(nullptr), size(0), is_root(false) {}
-
-        ~TreeNode() {
-
-            if (left)
-                delete left;
-
-            if (right)
-                delete right;
-
-            if (data)
-                delete data;
-        }
-
-        void _make_left(const T& node) {
-            if (left == nullptr) {
-                left = new TreeNode<T>(node);
-            } else {
+    void append(TreeNode<T>* node){
+        if(data >= node->data){
+            if(left == nullptr){
+                left = node;
+            }else{
                 left->append(node);
             }
         }
-
-        void _make_right(const T& node) {
-            if (right == nullptr) {
-                right = new TreeNode<T>(node);
-            } else {
+        else{
+            if(right == nullptr){
+                right = node;    
+            }else{
                 right->append(node);
             }
         }
-
-        void append(const T& node) {
-            size++;
-            if (data != nullptr) {
-                if (*data >= node) {
-                    _make_left(node);
-                } else {
-                    _make_right(node);
-                }
-            } else {
-                data = new T(node);
-            }
-        }
-
-        void call_cb(std::function<void(const T&)> cb, bool reverse = false) {
-            if (reverse) {
-                if (right)
-                    right->call_cb(cb, reverse);
-                if (data)
-                    cb(*data);
-                if (left)
-                    left->call_cb(cb, reverse);
-            } else {
-                if (left)
-                    left->call_cb(cb, reverse);
-                if (data)
-                    cb(*data);
-                if (right)
-                    right->call_cb(cb, reverse);
-            }
-        }
-    };
+    }
+};
 
 template <typename NodeType, typename Allocator = std::allocator<TreeNode<NodeType>>> class SimpleTree {
+using NodeTypeCB = std::function<void(const NodeType&)>;
 private:
     TreeNode<NodeType>* _root;
+    Allocator* _alloc;
+
+    TreeNode<NodeType>* _make_node(const NodeType& data) {
+        TreeNode<NodeType>* retval = _alloc->allocate(1);
+        _alloc->construct(retval, data);
+        return retval;
+    }
+
+    void _destroy_node(TreeNode<NodeType>* node){
+        if(node->left != nullptr)
+            _destroy_node(node->left);
+        if(node->left != nullptr)
+            _destroy_node(node->left);
+
+        _alloc->destroy(node);
+        _alloc->deallocate(node, 1);    
+    }
+
+    void _walk(TreeNode<NodeType>* node,const NodeTypeCB& cb){
+        if(node->left != nullptr)
+            _walk(node->left, cb);
+        cb(node->data);
+        if(node->right != nullptr)
+            _walk(node->right, cb);
+    }
 
 public:
-    SimpleTree() { _root = new TreeNode<NodeType>(); }
-    ~SimpleTree() { delete _root; }
-    void   append(const NodeType& data) { _root->append(data); }
-    void   call_cb(std::function<void(const NodeType&)> cb, bool reverse = false) { _root->call_cb(cb, reverse); }
-    size_t get_size() const { return _root->size; }
+    SimpleTree() {
+        _alloc = new Allocator();
+        _root = nullptr;
+    }
+
+    void append(const NodeType& row){
+        if(_root == nullptr){
+            _root = _make_node(row);
+        }
+        else {
+            _root->append(_make_node(row));
+        }
+    }
+
+    ~SimpleTree() { 
+        if(_root != nullptr)
+            _destroy_node(_root);
+
+        delete _alloc;
+    }
+
+    void walk(NodeTypeCB cb) {
+        if(_root != nullptr)
+            _walk(_root, cb);
+    }
 };
+
 
 }} // namespace pirates::helpers
 
