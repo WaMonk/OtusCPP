@@ -35,30 +35,40 @@ int main() {
      map2.emplace(i,factorial(i));
   }
 
-  otus::data::SimpleTree<int> tree;
+  std::stringstream buffer1;
+  std::stringstream buffer2;
+  for(size_t i = 0; i < 10; i++){
+    buffer1 << i << " "<< map1[i]<< std::endl;
+    buffer2 << i << " "<< map2[i]<< std::endl;
+  }
 
+  buffer1.flush();
+  buffer2.flush();
+
+  std::cout<<buffer1.str()<<std::endl;
+  std::cout<<buffer2.str()<<std::endl;
+
+  std::stringstream buffer3;
+  std::stringstream buffer4;
+
+  otus::data::SimpleTree<int> tree;
   for(size_t i = 0; i < 10; i++){
       tree.append(i);
   }
 
-  tree.call_cb([](const int& row) -> void { std::cout<<std::to_string(row)<<std::endl;}, true);
+  otus::data::SimpleTree<int, otus::memory::Allocator<otus::data::TreeNode<int>, 10>> tree1;
+  for(size_t i = 0; i < 10; i++){
+      tree1.append(i);
+  }
 
+  tree.walk([&buffer3](const int& row) -> void { buffer3<<row<<std::endl; });
+  tree1.walk([&buffer4](const int& row) -> void { buffer4<<row<<std::endl;});
 
-  // std::stringstream buffer1;
-  // std::stringstream buffer2;
-  // for(size_t i = 0; i < 10; i++){
-  //   buffer1 << i << " "<< map1[i]<< "\n";
-  //   buffer2 << i << " "<< map2[i]<< "\n";
-  // }
+  buffer3.flush();
+  buffer4.flush();
 
-  // buffer1.flush();
-  // buffer2.flush();
-
-  // std::cout<<buffer1.str()<<std::endl;
-  // std::cout<<buffer2.str()<<std::endl;
-  
-  
+  std::cout<<buffer3.str()<<std::endl;
+  std::cout<<buffer4.str()<<std::endl;
  
   return 0;
-
 }
