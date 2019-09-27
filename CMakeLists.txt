@@ -6,7 +6,7 @@ ELSE()
 	SET(P_G_VERSION 0.0.1)
 ENDIF()
 
-set(B_PACKAGE_NAME OtusWork2)
+set(B_PACKAGE_NAME OtusWork3)
 
 project(Otus-All VERSION "${P_G_VERSION}")
 
