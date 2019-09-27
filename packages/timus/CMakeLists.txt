@@ -10,7 +10,7 @@ project(Otus1 VERSION "${P_VERSION}")
 
 include_directories("include")
 
-set(sourcesTimus)
+set(sourcesTimus src/work2.cc src/work3.cc)
 
 add_executable(mainTimus src/main.cc ${sourcesTimus})
 
